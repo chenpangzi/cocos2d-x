@@ -241,6 +241,11 @@ static const int CC_EDIT_BOX_PADDING = 5;
  */
 - (void) textChanged
 {
+	
+    UITextRange *selectedRange = textField_.markedTextRange;
+    if (selectedRange != nil && !selectedRange.empty) {
+        return; // 中文输入这边会调用两次，输入过程中，会把字母回调进来
+    }
     // NSLog(@"text is %@", self.textField.text);
     cocos2d::ui::EditBoxDelegate* pDelegate = getEditBoxImplIOS()->getDelegate();
     if (pDelegate != NULL)
